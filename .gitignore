@@ -1,0 +1,17 @@
+# Angular
+recipe-manager-ui/node_modules/
+recipe-manager-ui/dist/
+recipe-manager-ui/.angular/
+
+# Spring Boot
+recipe-manager-api/target/
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+
+# Logs
+*.log
