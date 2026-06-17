@@ -2,6 +2,7 @@ package com.recipestore.recipe_manager_api.controller;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,10 +14,12 @@ import com.recipestore.recipe_manager_api.repository.RecipeRepository;
 import com.recipestore.recipe_manager_api.service.RecipeService;
 
 import jakarta.validation.Valid;
-import jakarta.validation.constraints.NotBlank;
 
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 
 import java.util.*;
 
@@ -32,8 +35,9 @@ public class RecipeController {
     }
 
     @PostMapping
-    public Recipe createRecipe(@Valid @RequestBody Recipe recipe) {
-        return recipeService.createRecipe(recipe);
+    public ResponseEntity<Recipe> createRecipe(@Valid @RequestBody Recipe recipe) {
+        Recipe savedRecipe = recipeService.createRecipe(recipe);
+        return ResponseEntity.status(HttpStatus.CREATED).body(savedRecipe);
     }
 
     @GetMapping
