@@ -1,0 +1,8 @@
+<p>login works!</p>
+<form>
+    <input [(ngModel)]="user.username" name = "username" placeholder="Username">
+    <input [(ngModel)]="user.password" name = "password" type="password" placeholder="Password">
+    <button (click) = "onLogin()">Login</button>
+    <button (click) = "onRegister()">Register</button>
+    <button (click) = "logout()">Logout</button>
+</form>
