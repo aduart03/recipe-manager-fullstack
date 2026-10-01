@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, signal } from '@angular/core';
 import { Recipe } from '../../models/recipe';
 import { RecipeService } from '../../services/recipe';
 import { FormsModule } from '@angular/forms';
@@ -10,11 +10,13 @@ import { CommonModule } from '@angular/common';
   templateUrl: './recipes.html',
   styleUrl: './recipes.css',
 })
-export class Recipes {
+export class Recipes implements OnInit{
+
+   recipes = signal<Recipe[]>([]);
 
 
-    // Will wtore all recipes here
-    recipes: Recipe[] = [];
+    // Will store all recipes here
+    //recipes: Recipe[] = [];
 
     // Error message
     errorMessage: string = '';
@@ -48,7 +50,7 @@ export class Recipes {
       next: (savedRecipe) => {
 
         this.errorMessage = '';
-        this.recipes.push(savedRecipe);
+        this.recipes.update(list => [...list, savedRecipe]);
         this.resetForm();
       },
       error: (error) => {
@@ -63,7 +65,7 @@ export class Recipes {
     loadRecipes(): void {
       this.recipeService.getAllRecipes().subscribe({
         next: (data) => {
-          this.recipes = data;
+          this.recipes.set(data);
           console.log(data);
         },
         error: (error) => {

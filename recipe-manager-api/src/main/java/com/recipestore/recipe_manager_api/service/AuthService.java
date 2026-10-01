@@ -5,7 +5,10 @@ import org.springframework.stereotype.Service;
 import com.recipestore.recipe_manager_api.model.AppUser;
 import com.recipestore.recipe_manager_api.repository.AppUserRepository;
 import java.lang.*;
+
+import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.web.server.ResponseStatusException;
 
 @Service
 public class AuthService {
@@ -25,7 +28,7 @@ public class AuthService {
     // Persist user to database if they dont already exist
     public AppUser registerUser(AppUser user){
         if (appUserRepository.existsByUsername(user.getUsername()) ){
-            throw new RuntimeException("Username already exists");
+            throw new ResponseStatusException(HttpStatus.CONFLICT, "Username already exists");
         }
 
         user.setPassword(passwordEncoder.encode(user.getPassword()));

@@ -8,36 +8,38 @@
   <input [(ngModel)]="newRecipe.ingredients" name="ingredients" placeholder="Ingredients">
   <input [(ngModel)]="newRecipe.instructions" name="instructions" placeholder="Instructions">
 
-  <button type="button" (click)="createRecipe()" *ngIf="!selectedRecipe">
-  Create Recipe
-  </button>
+  @if (!selectedRecipe) {
+    <button type="button" (click)="createRecipe()">
+      Create Recipe
+    </button>
+  } @else {
+    <button type="button" (click)="updateRecipe()">
+      Update Recipe
+    </button>
+  }
 
-  <button type="button" (click)="updateRecipe()" *ngIf="selectedRecipe">
-    Update Recipe
-  </button>
-
-  <div *ngIf="errorMessage">
-    {{ errorMessage }}
-  </div>
+  @if (errorMessage) {
+    <div>{{ errorMessage }}</div>
+  }
 </form>
 
 <h2>Recipes</h2>
 
 <ul>
-  @for (recipe of recipes; track recipe.id) {
+  @for (recipe of recipes(); track recipe.id) {
     <li>
       <strong>{{ recipe.name }}</strong>
       <p>{{ recipe.description }}</p>
       <p>{{ recipe.ingredients }}</p>
       <p>{{ recipe.instructions }}</p>
+
+      <button type="button" (click)="editRecipe(recipe)">
+        Edit Recipe
+      </button>
+
+      <button type="button" (click)="deleteRecipe(recipe.id!)" class="delete-btn">
+        Delete Recipe
+      </button>
     </li>
-
-    <button type="button" (click)="editRecipe(recipe)">
-      Edit Recipe
-    </button>
-
-    <button type="button" (click)="deleteRecipe(recipe.id!)" style="background-color: red; color: white; border-radius: 5%; font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;">
-      Delete Recipe
-    </button>
   }
 </ul>
