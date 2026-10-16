@@ -1,0 +1,27 @@
+.hero {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  overflow: hidden;
+  margin: 100px 0px;
+}
+.hero-word {
+  position: absolute;
+  top: 5%;
+  margin: 15vh 0vh;
+  font-size: clamp(4rem, 15vw, 12rem);
+  font-weight: 900;
+  letter-spacing: 0.05em;
+  z-index: 1;               /* behind */
+}
+.hero-cutout {
+  
+  position: relative;
+  height: 55vh;
+  aspect-ratio: 3 / 4;
+  object-fit: cover;
+  object-position: center 60%;
+  border-radius: 15px;
+  z-index: 2;
+}
